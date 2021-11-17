@@ -9,10 +9,10 @@ const WooCommerce = new WooCommerceRestApi({
 });
 
 class ProductService{
-    getProducts =() =>{
+    getProducts =(page) =>{
       return  WooCommerce.get("products", {
-        //   page:page,
-        //   per_page:3
+          page:page,
+          per_page:3
       })
         .then((response) => {
             const products = response.data.map((rawData) => {
@@ -21,8 +21,21 @@ class ProductService{
             return products
         })
         .catch((error) => {
+            console.log(error)
             return []
         }); 
+    }
+    
+    getProductById =(id) =>{
+      return  WooCommerce.get("products/${id}", {
+      })
+      .then((response) => {
+          return new Product(response.data) 
+      })
+      .catch((error) => {
+          console.log(error)
+          return null
+      }); 
     }
 }
 

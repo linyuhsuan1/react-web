@@ -1,7 +1,8 @@
 import React from 'react'
 
 import ProductsIndexPage from '../products/productsIndexPage'
-// import ProductsShowPage from '../products/productsShowPage'
+import HomePage from '../home/HomePage';
+import ProductsShowPage from '../products/productsShowPage'
 // import OrdersIndexPage from '../orders/ordersIndexPage'
 // import OrdersShowPage from '../orders/ordersShowPage'
 // import OrderSuccessPage from '../orders/orderSuccessPage'
@@ -15,23 +16,23 @@ import {
     Route,
     
   } from "react-router-dom";
-// import HomePage from '../home/HomePage';
 
 const Routes = () => {
     return (<>
      <Switch>
-            {/* <Route path="/" exact>
+            <Route path="/home" exact>
                 <HomePage />
-            </Route> */}
+            </Route>
             <Route path="/products">
                 <ProductsIndexPage />
             </Route>
             <Route path="/cart" exact>
                 <CartIndexPage />
             </Route>
-            {/* <Route path="/products/:id" exact>
+            <Route path="/products/:id" exact>
                 <ProductsShowPage />
             </Route>
+            {/*
             <Route path="/orders" exact>
                 <OrdersIndexPage />
             </Route>
