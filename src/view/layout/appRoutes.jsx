@@ -23,15 +23,16 @@ const Routes = () => {
             <Route path="/home" exact>
                 <HomePage />
             </Route>
-            <Route path="/products">
+            <Route path="/products" exact>
                 <ProductsIndexPage />
-            </Route>
-            <Route path="/cart" exact>
-                <CartIndexPage />
             </Route>
             <Route path="/products/:id" exact>
                 <ProductsShowPage />
             </Route>
+            <Route path="/cart" exact>
+                <CartIndexPage />
+            </Route>
+
             {/*
             <Route path="/orders" exact>
                 <OrdersIndexPage />

@@ -27,9 +27,10 @@ class ProductService{
     }
     
     getProductById =(id) =>{
-      return  WooCommerce.get("products/${id}", {
+      return  WooCommerce.get(`products/${id}`, {
       })
       .then((response) => {
+          console.log('sdfsdsdfsdfs',response.data)
           return new Product(response.data) 
       })
       .catch((error) => {

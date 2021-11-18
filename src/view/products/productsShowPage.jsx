@@ -1,14 +1,18 @@
-import React , {useState,useEffect, useRef}from 'react' 
-import { useParams } from 'react-router-dom';
-import ProductService from '../../service/productService';
-import LoadingView from '../layout/loadingView';
+import React, { useEffect, useState, useRef, useMemo } from 'react'
+import {
+    useParams,
+    Redirect,
+} from "react-router-dom";
+import LoadingView from '../layout/loadingView'
+import ProductService from '../../service/productService'
 
-const productService =new ProductService();
+const productService = new ProductService()
+
 const ProductsShowPage = () => {
     let { id } = useParams();
-    let isInited = useRef(false);
-    const [product,setProduct] = useState([]);
-    console.log('sssss',id)
+    let isInited = useRef(false)
+    const [product, setProduct] = useState([])
+
     useEffect(() => {
         const loadFunc = async () => {
             const result = await productService.getProductById(id)
@@ -18,12 +22,26 @@ const ProductsShowPage = () => {
 
         loadFunc()
     }, [id])
-    return (
 
+    const initFlag = isInited.current
+    const contentView = useMemo(() => {
+        if (initFlag) {
+            if (product) {
+                return (<h1>{product.name}</h1>)
+            } else {
+                return (<Redirect to="/products" />)
+            }
+        } else {
+            return (<LoadingView />)
+        }
+    }, [product, initFlag])
+
+    return (
         <div>
-          this is{id}
+            {
+                contentView 
+            }
         </div>
-       
     )
 }
 
