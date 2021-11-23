@@ -1,8 +1,8 @@
 import React from 'react';
 import {
-    BrowserRouter as Router,
     Link,
   } from "react-router-dom";
+  import CartItemsPopUp from '../layout/cartItemPopup';
 const  Nav= () => {
   return (
     <React.Fragment>
@@ -16,14 +16,14 @@ const  Nav= () => {
               <div className="h-screen p-4 bg-white dark:bg-gray-900">
       <h1 className="text-5xl text-gray-900 dark:text-white">手動深色模式</h1>
     </div>
+
     <Link to="/home">
        <span className="flex px-6 py-2 tracking-widest text-red-500 font-fredoka-one hover:text-blue-500">Home</span>
     </Link>
     <Link to="/products">
       <span className="flex px-6 py-2 text-red-500 font-font-chinese hover:text-blue-500 ">所有商品</span>
     </Link>
-    <span className="flex px-6 py-2 text-red-500 font-font-chinese hover:text-blue-500 ">購物車</span>
-
+    <CartItemsPopUp />
     </nav>
     <button className="flex flex-col lg:hidden">
       <span className="w-6 h-px mb-1 bg-gray-900"></span>

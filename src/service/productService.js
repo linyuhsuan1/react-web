@@ -12,7 +12,7 @@ class ProductService{
     getProducts =(page) =>{
       return  WooCommerce.get("products", {
           page:page,
-          per_page:3
+          per_page:4
       })
         .then((response) => {
             const products = response.data.map((rawData) => {
@@ -30,13 +30,29 @@ class ProductService{
       return  WooCommerce.get(`products/${id}`, {
       })
       .then((response) => {
-          console.log('sdfsdsdfsdfs',response.data)
           return new Product(response.data) 
       })
       .catch((error) => {
           console.log(error)
           return null
       }); 
+    }
+
+    getProductsByIds=(ids) =>{
+        return  WooCommerce.get("products", {
+            page:100,
+            per_page:ids
+        })
+        .then((response) => {
+            const products = response.data.map((rawData) => {
+                return new Product(rawData)
+            })
+            return products
+        })
+        .catch((error) => {
+            console.log(error)
+            return []
+        }); 
     }
 }
 

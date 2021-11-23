@@ -4,8 +4,7 @@ import React from 'react';
 const LoadingView= () => {
 
     return(
-        <div className="w-full max-w-sm p-4 mx-auto border border-blue-300 rounded-md shadow">
-            this is loading
+        <div className="w-full max-w-sm p-4 mx-auto rounded-md shadow">
         <div className="flex space-x-4 animate-pulse">
           <div className="w-12 h-12 bg-blue-400 rounded-full"></div>
           <div className="flex-1 py-1 space-y-4">

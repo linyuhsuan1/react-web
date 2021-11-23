@@ -5,7 +5,6 @@ class product extends pbModel{
     get id() {
         return this.getValue("id")
     }
-
     get name(){
         return this.getValue("name")
     }
@@ -28,6 +27,7 @@ class product extends pbModel{
         }
         return ""
     }
+    
 }
 
 export default  product;

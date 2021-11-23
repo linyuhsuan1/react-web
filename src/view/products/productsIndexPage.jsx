@@ -45,7 +45,9 @@ const ProductsIndexPage = () => {
     return (
         isInited.current ?
         (<>
-            <div className="flex flex-row ml-20"> 
+        <section className="text-gray-600 body-font">
+        <div className="container px-5 py-24 mx-auto">
+            <div className="flex flex-wrap -m-4">
             {
                 products.map((product) => {
                     return (
@@ -54,11 +56,15 @@ const ProductsIndexPage = () => {
                 })
             }
             </div>
+        </div>
+        </section>
+        <div className="flex justify-center">
             {
                 isLastPage.current ? 
                 (<p>this is last page</p>) : 
                 (<button className="px-3 py-2 text-xs font-bold text-center text-white bg-gray-800 rounded" onClick={loadMoreProducts}>loading</button>)
             }
+        </div>
         </>):
         (<LoadingView />)  
     )

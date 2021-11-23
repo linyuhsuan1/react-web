@@ -3,8 +3,9 @@ import {
     useParams,
     Redirect,
 } from "react-router-dom";
-import LoadingView from '../layout/loadingView'
-import ProductService from '../../service/productService'
+import LoadingView from '../layout/loadingView';
+import ProductDetail from '../products/productDetail';
+import ProductService from '../../service/productService';
 
 const productService = new ProductService()
 
@@ -19,7 +20,6 @@ const ProductsShowPage = () => {
             isInited.current = true
             setProduct(result)
         }
-
         loadFunc()
     }, [id])
 
@@ -27,7 +27,7 @@ const ProductsShowPage = () => {
     const contentView = useMemo(() => {
         if (initFlag) {
             if (product) {
-                return (<h1>{product.name}</h1>)
+                return (<ProductDetail product={product}/>)
             } else {
                 return (<Redirect to="/products" />)
             }
