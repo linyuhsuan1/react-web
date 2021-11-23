@@ -41,7 +41,7 @@ class ProductService{
     getProductsByIds=(ids) =>{
         return  WooCommerce.get("products", {
             page:100,
-            per_page:ids
+            include: ids
         })
         .then((response) => {
             const products = response.data.map((rawData) => {
