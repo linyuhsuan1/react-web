@@ -1,20 +1,22 @@
-import pbModel from './pbModel';
+import PBModel from "./pbModel";
 
-class cartItemDatail extends pbModel{
-    constructor(product,quantity){
-        console.log('cartDetail',product,quantity)
+class CartItemDetail extends PBModel {
+    constructor(product, quantity) {
+        console.log(quantity)
         super({
             product: product,
             quantity: quantity
         })
     }
-  
+
     get product() {
         return this.getValue("product")
     }
-    get quantity(){
+
+    get quantity() {
         return this.getValue("quantity")
     }
+
     get productName() {
         return this.product.name
     }
@@ -22,7 +24,6 @@ class cartItemDatail extends pbModel{
     get productId() {
         return this.product.id
     }
-    
 }
 
-export default  cartItemDatail;
+export default CartItemDetail

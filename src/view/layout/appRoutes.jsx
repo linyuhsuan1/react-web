@@ -14,12 +14,12 @@ import {
     BrowserRouter as Router,
     Switch,
     Route,
-    
-  } from "react-router-dom";
+
+} from "react-router-dom";
 
 const Routes = () => {
     return (<>
-     <Switch>
+        <Switch>
             <Route path="/" exact>
                 <HomePage />
             </Route>
@@ -35,7 +35,6 @@ const Routes = () => {
             <Route path="/cart" exact>
                 <CartIndexPage />
             </Route>
-
             {/*
             <Route path="/orders" exact>
                 <OrdersIndexPage />
