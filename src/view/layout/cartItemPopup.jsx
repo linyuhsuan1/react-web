@@ -1,7 +1,5 @@
 import React, { useEffect, useState, useContext } from 'react';
-import {
-    Link,
-} from "react-router-dom";
+import { Link, } from 'react-dom';
 import CartService from '../../service/cartService'
 import ProductService from '../../service/productService'
 import CartContext from '../../context/cartContext'
@@ -41,7 +39,7 @@ const CartItemPopup = () => {
         loadCartItemsDetail()
     }, [productService])
     return (
-        <React.Fragment>
+        <>
             <span className="flex px-6 py-2 text-red-500 font-font-chinese hover:text-blue-500" onClick={() => setOpen(true)}>購物車{count}</span>
             {open ? (
                 <div className="flex flex-col justify-center" >
@@ -74,18 +72,14 @@ const CartItemPopup = () => {
                                     </div>
                                 </div>
                             </div>
-                            <Link to="/cart">
-                                <div className="flex justify-center block px-4 py-0 transition-colors text-normal" >
-
-                                    <button className="p-2 text-sm text-white bg-purple-500 rounded">加入購物車</button>
-
-                                </div>
-                            </Link>
+                            <div className="flex justify-center block px-4 py-0 transition-colors text-normal" onClick={() => setOpen(false)}>
+                                <button className="p-2 text-sm text-white bg-purple-500 rounded">加入購物車</button>
+                            </div>
                         </div>
                     </div>
                 </div>
             ) : null}
-        </React.Fragment>
+        </>
     )
 }
 export default CartItemPopup
