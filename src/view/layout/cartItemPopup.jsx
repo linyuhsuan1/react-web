@@ -1,5 +1,8 @@
 import React, { useEffect, useState, useContext } from 'react';
-import { Link, } from 'react-dom';
+import {
+    Link,
+} from "react-router-dom";
+
 import CartService from '../../service/cartService'
 import ProductService from '../../service/productService'
 import CartContext from '../../context/cartContext'
@@ -72,9 +75,12 @@ const CartItemPopup = () => {
                                     </div>
                                 </div>
                             </div>
-                            <div className="flex justify-center block px-4 py-0 transition-colors text-normal" onClick={() => setOpen(false)}>
-                                <button className="p-2 text-sm text-white bg-purple-500 rounded">加入購物車</button>
-                            </div>
+                            <Link to="/cart">
+                                <div className="flex justify-center block px-4 py-0 transition-colors text-normal" >
+                                    <button className="p-2 text-sm text-white bg-purple-500 rounded">加入購物車</button>
+                                </div>
+                            </Link>
+
                         </div>
                     </div>
                 </div>
