@@ -2,7 +2,7 @@ import PBModel from "./pbModel";
 
 class CartItemDetail extends PBModel {
     constructor(product, quantity) {
-        console.log(quantity)
+        console.log("detail", product, quantity)
         super({
             product: product,
             quantity: quantity
