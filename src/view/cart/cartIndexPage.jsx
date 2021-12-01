@@ -1,7 +1,34 @@
-import React from 'react'
+import React, { useContext, useMemo } from 'react';
+import CartContext from '../../context/cartContext'
+import CartService from '../../service/cartService'
+
+const cartService = new CartService()
+
+
+const QuantitySelector = ({ value, onChange }) => {
+    const valueArray = useMemo(() => {
+        let tmp = Array.from(Array(101).keys())
+        tmp.shift()
+        return tmp
+    }, [])
+    return (
+        <div className="relative inline-block w-64">
+            <select className="block w-full px-4 py-2 pr-8 leading-tight bg-white border border-gray-400 rounded shadow appearance-none hover:border-gray-500 focus:outline-none focus:shadow-outline"
+                value={value}
+                onChange={onChange}
+            >
+                {
+                    valueArray.map((number) => {
+                        return (<option key={number} value={number}>{number}</option>)
+                    })
+                }
+            </select>
+        </div>
+    )
+}
 
 const CartIndexPage = () => {
-    console.log('cart')
+    const [cartItemDetails, setCartItemDetails, mergeDataWithToCartItemsDetail] = useContext(CartContext);
     return (
         <>
             <div className="h-screen bg-gray-300">
@@ -12,36 +39,49 @@ const CartIndexPage = () => {
                                 <div className="gap-2 md:grid md:grid-cols-3 ">
                                     <div className="col-span-2 p-5">
                                         <h1 className="text-xl font-medium ">Shopping Cart</h1>
-                                        <div className="flex items-center justify-between pt-6 mt-6">
-                                            <div className="flex items-center"> <img src="https://i.imgur.com/EEguU02.jpg" width="60" className="rounded-full " />
-                                                <div className="flex flex-col ml-3"> <span className="font-medium md:text-md">Chicken momo</span> <span className="text-xs font-light text-gray-400">#41551</span> </div>
-                                            </div>
-                                            <div className="flex items-center justify-center">
-                                                <div className="flex pr-8 "> <span className="font-semibold">-</span> <input type="text" className="w-8 h-6 px-2 mx-2 text-sm bg-gray-100 border rounded focus:outline-none" value="1" /> <span className="font-semibold">+</span> </div>
-                                                <div className="pr-8 "> <span className="text-xs font-medium">$10.50</span> </div>
-                                                <div> <i className="text-xs font-medium fa fa-close"></i> </div>
-                                            </div>
-                                        </div>
-                                        <div className="flex items-center justify-between pt-6 mt-6 border-t">
-                                            <div className="flex items-center"> <img src="https://i.imgur.com/Uv2Yqzo.jpg" width="60" className="rounded-full " />
-                                                <div className="flex flex-col ml-3 "> <span className="w-auto font-medium text-md">Spicy Mexican potatoes</span> <span className="text-xs font-light text-gray-400">#66999</span> </div>
-                                            </div>
-                                            <div className="flex items-center justify-center">
-                                                <div className="flex pr-8"> <span className="font-semibold">-</span> <input type="text" className="w-8 h-6 px-2 mx-2 text-sm bg-gray-100 border rounded focus:outline-none" value="1" /> <span className="font-semibold">+</span> </div>
-                                                <div className="pr-8"> <span className="text-xs font-medium">$10.50</span> </div>
-                                                <div> <i className="text-xs font-medium fa fa-close"></i> </div>
-                                            </div>
-                                        </div>
-                                        <div className="flex items-center justify-between pt-6 mt-6 border-t">
-                                            <div className="flex items-center"> <img src="https://i.imgur.com/xbTAITF.jpg" width="60" className="rounded-full " />
-                                                <div className="flex flex-col ml-3 "> <span className="font-medium text-md">Breakfast</span> <span className="text-xs font-light text-gray-400">#86577</span> </div>
-                                            </div>
-                                            <div className="flex items-center justify-center">
-                                                <div className="flex pr-8"> <span className="font-semibold">-</span> <input type="text" className="w-8 h-6 px-2 mx-2 text-sm bg-gray-100 border rounded focus:outline-none" value="1" /> <span className="font-semibold">+</span> </div>
-                                                <div className="pr-8"> <span className="text-xs font-medium">$10.50</span> </div>
-                                                <div> <i className="text-xs font-medium fa fa-close"></i> </div>
-                                            </div>
-                                        </div>
+                                        {
+                                            cartItemDetails.map((cartItem) => {
+                                                const { product, quantity } = cartItem
+                                                return (
+                                                    <div className="flex items-center justify-between pt-6 mt-6" key={product.id}>
+                                                        <div className="flex items-center"> <img src="https://i.imgur.com/EEguU02.jpg" width="60" className="rounded-full " />
+                                                            <div className="flex flex-col ml-3"> <span className="font-medium md:text-md">{product.title}</span> <span className="text-xs font-light text-gray-400">{product.id}</span> </div>
+                                                        </div>
+                                                        <div className="flex items-center justify-center">
+                                                            <div className="flex pr-8 "></div>
+                                                            <div className="pr-8 ">
+                                                                <QuantitySelector
+                                                                    value={quantity}
+                                                                    onChange={
+                                                                        (e) => {
+                                                                            const { value } = e.target;
+
+                                                                            const newQuantity = parseInt(value);
+                                                                            console.log('gggg', newQuantity)
+                                                                            const newCartItemDetails = mergeDataWithToCartItemsDetail(
+                                                                                cartItemDetails,
+                                                                                product,
+                                                                                newQuantity,
+                                                                                false
+                                                                            )
+                                                                            setCartItemDetails(newCartItemDetails)
+                                                                            cartService.updateCartItem(
+                                                                                CartService.createCartItem(
+                                                                                    product.id,
+                                                                                    newQuantity
+                                                                                )
+                                                                            )
+                                                                        }
+                                                                    }
+
+                                                                />
+                                                            </div>
+                                                            <div> <i className="text-xs font-medium fa fa-close"></i> </div>
+                                                        </div>
+                                                    </div>)
+
+                                            })
+                                        }
                                         <div className="flex items-center justify-between pt-6 mt-6 border-t">
                                             <div className="flex items-center"> <i className="pr-2 text-sm fa fa-arrow-left"></i> <span className="font-medium text-blue-500 text-md">Continue Shopping</span> </div>
                                             <div className="flex items-end justify-center"> <span className="mr-1 text-sm font-medium text-gray-400">Subtotal:</span> <span className="text-lg font-bold text-gray-800 "> $24.90</span> </div>

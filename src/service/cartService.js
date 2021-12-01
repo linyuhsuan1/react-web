@@ -17,6 +17,14 @@ class CartService {
         console.log('fff', JSON.stringify(this.cart));
     }
 
+    static createCartItem = (productId, quantity = 0) => {
+        console.log('create', productId, quantity)
+        return {
+            productId: productId,
+            quantity: quantity
+        }
+    }
+
     save = () => {
         console.log("aaaa", this.cart)
         Cookies.set(CART_KEY, JSON.stringify(this.cart));
@@ -35,7 +43,7 @@ class CartService {
     }
 
     addInCart = (productId, quantity) => {
-        const cartItem = this.getCartItem(productId) || { productId: productId, quantity: 0 }
+        const cartItem = this.getCartItem(productId) || CartService.createCartItem(productId, 0)
         cartItem.quantity += Math.max(1, quantity)
         this.updateCartItem(cartItem)
     }

@@ -7,7 +7,7 @@ const cartService = new CartService();
 const ProductDetail = ({ product }) => {
     const isDiscont = product.onSale ? <CrncFormat product={product} /> : (<>${product.price}</>);
     const [quantity, setQuantity] = useState(1); //select下拉選單
-    const [cartItemDetails, setCartItemDetails] = useContext(CartContext)
+    const [cartItemDetails, setCartItemDetails, mergeDataWithToCartItemsDetail] = useContext(CartContext)
     const selectQuantity = useCallback((e) => {
         const { value } = e.target
         setQuantity(value)
@@ -18,29 +18,13 @@ const ProductDetail = ({ product }) => {
 
     const addInCart = useCallback((e) => {
         const quantityForSubmit = parseInt(quantity)
-        if (cartService.getCartItem(product.id)) {
-            const newValue = cartItemDetails.map((item) => {
-                if (item.product.id === product.id) {
-                    return new CartItemDetail(
-                        product,
-                        parseInt(item.quantity) + quantityForSubmit
-                    )
-                } else {
-                    return item
-                }
-            })
-            setCartItemDetails(newValue)
-        } else {
-            setCartItemDetails(
-                [
-                    ...cartItemDetails,
-                    new CartItemDetail(
-                        product,
-                        parseInt(quantity)
-                    )
-                ]
-            )
-        }
+        const newCartItemDetails = mergeDataWithToCartItemsDetail(
+            cartItemDetails,
+            product,
+            quantityForSubmit
+        )
+
+        setCartItemDetails(newCartItemDetails)
 
 
         cartService.addInCart(product.id, quantityForSubmit)
