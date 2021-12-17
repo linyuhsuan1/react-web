@@ -1,4 +1,5 @@
 import React, { useContext, useMemo } from 'react';
+import { Link } from 'react-router-dom';
 import CartContext from '../../context/cartContext'
 import CartService from '../../service/cartService'
 
@@ -29,6 +30,13 @@ const QuantitySelector = ({ value, onChange }) => {
 
 const CartIndexPage = () => {
     const [cartItemDetails, setCartItemDetails, mergeDataWithToCartItemsDetail] = useContext(CartContext);
+
+    const total = useMemo(() => {
+        return cartItemDetails.reduce((sum, item) => {
+            return sum + item.quantity * item.product.price
+        }, 0)
+    }, [cartItemDetails])
+
     return (
         <>
             <div className="h-screen bg-gray-300">
@@ -45,7 +53,7 @@ const CartIndexPage = () => {
                                                 return (
                                                     <div className="flex items-center justify-between pt-6 mt-6" key={product.id}>
                                                         <div className="flex items-center"> <img src="https://i.imgur.com/EEguU02.jpg" width="60" className="rounded-full " />
-                                                            <div className="flex flex-col ml-3"> <span className="font-medium md:text-md">{product.title}</span> <span className="text-xs font-light text-gray-400">{product.id}</span> </div>
+                                                            <div className="flex flex-col ml-3"> <span className="font-medium md:text-md">{product.title}</span> <span className="text-xs font-light text-gray-400">{product.id} ${product.price}</span> </div>
                                                         </div>
                                                         <div className="flex items-center justify-center">
                                                             <div className="flex pr-8 "></div>
@@ -55,9 +63,7 @@ const CartIndexPage = () => {
                                                                     onChange={
                                                                         (e) => {
                                                                             const { value } = e.target;
-
                                                                             const newQuantity = parseInt(value);
-                                                                            console.log('gggg', newQuantity)
                                                                             const newCartItemDetails = mergeDataWithToCartItemsDetail(
                                                                                 cartItemDetails,
                                                                                 product,
@@ -76,7 +82,19 @@ const CartIndexPage = () => {
 
                                                                 />
                                                             </div>
-                                                            <div> <i className="text-xs font-medium fa fa-close"></i> </div>
+                                                            <div onClick={
+                                                                () => {
+                                                                    const newCartItemDetails = cartItemDetails.map(
+                                                                        (item) => {
+                                                                            if (item.product.id === product.id) {
+                                                                                return null
+                                                                            }
+                                                                            return item
+                                                                        }).filter(x => x)
+                                                                    setCartItemDetails(newCartItemDetails)
+                                                                    cartService.removeCartItem(product.id)
+                                                                }
+                                                            }> <i className="text-xs font-medium fa fa-close"></i>x </div>
                                                         </div>
                                                     </div>)
 
@@ -84,7 +102,10 @@ const CartIndexPage = () => {
                                         }
                                         <div className="flex items-center justify-between pt-6 mt-6 border-t">
                                             <div className="flex items-center"> <i className="pr-2 text-sm fa fa-arrow-left"></i> <span className="font-medium text-blue-500 text-md">Continue Shopping</span> </div>
-                                            <div className="flex items-end justify-center"> <span className="mr-1 text-sm font-medium text-gray-400">Subtotal:</span> <span className="text-lg font-bold text-gray-800 "> $24.90</span> </div>
+                                            <div className="flex items-end justify-center"> <span className="mr-1 text-sm font-medium text-gray-400">Subtotal:</span> <span className="text-lg font-bold text-gray-800 "> ${total}</span> </div>
+                                            <Link to="checkout">
+                                                <div className="flex items-center"> <i className="pr-2 text-sm fa fa-arrow-left"></i> <button className="font-medium text-blue-500 text-md">結帳</button> </div>
+                                            </Link>
                                         </div>
                                     </div>
                                 </div>

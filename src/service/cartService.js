@@ -5,20 +5,14 @@ const CART_KEY = "cart"
 class CartService {
     constructor() {
         this.cart = Cookies.get(CART_KEY)
-        console.log('inital', JSON.stringify(this.cart));
         if (this.cart == null || this.cart == "[object Object]") {
-
-            this.cart = {}
-
-            this.save()
+            this.clearCartItems();
         } else {
             this.cart = JSON.parse(this.cart)
         }
-        console.log('fff', JSON.stringify(this.cart));
     }
 
     static createCartItem = (productId, quantity = 0) => {
-        console.log('create', productId, quantity)
         return {
             productId: productId,
             quantity: quantity
@@ -26,9 +20,7 @@ class CartService {
     }
 
     save = () => {
-        console.log("aaaa", this.cart)
         Cookies.set(CART_KEY, JSON.stringify(this.cart));
-        console.log('dddddddd', this.cart)
     }
 
     getCartItem = (productId) => {
@@ -59,12 +51,16 @@ class CartService {
 
     removeCartItem = (productId) => {
         this.cart[productId] = null
+        this.save()
     }
 
     isCartItemValid = (cartItem, productId) => {
         return !(cartItem.productId !== productId || cartItem.quantity <= 0)
     }
-
+    clearCartItems() {
+        this.cart = {}
+        this.save()
+    }
     getCartItems = () => {
         return Object.keys(this.cart).map((productId) => {
             return this.getCartItem(productId)

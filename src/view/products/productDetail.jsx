@@ -5,7 +5,7 @@ import CartContext from '../../context/cartContext'
 import CartItemDetail from '../../model/cartItemDetail';
 const cartService = new CartService();
 const ProductDetail = ({ product }) => {
-    const isDiscont = product.onSale ? <CrncFormat product={product} /> : (<>${product.price}</>);
+    const isDiscont = product.onSale ? <CrncFormat product={product} /> : (<>NT. {product.regularPrice}</>);
     const [quantity, setQuantity] = useState(1); //select下拉選單
     const [cartItemDetails, setCartItemDetails, mergeDataWithToCartItemsDetail] = useContext(CartContext)
     const selectQuantity = useCallback((e) => {
@@ -21,7 +21,8 @@ const ProductDetail = ({ product }) => {
         const newCartItemDetails = mergeDataWithToCartItemsDetail(
             cartItemDetails,
             product,
-            quantityForSubmit
+            quantityForSubmit,
+            true
         )
 
         setCartItemDetails(newCartItemDetails)

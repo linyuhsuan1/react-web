@@ -1,9 +1,12 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import {
   Link,
 } from "react-router-dom";
 import CartItemsPopUp from '../layout/cartItemPopup';
+import IsLogInContext from '../../context/isLoginContext';
 const Nav = () => {
+  const [isLogin, setIsLogin] = useContext(IsLogInContext);
+  console.log('fgfddf', isLogin)
   return (
     <React.Fragment>
       <header className="z-40 flex items-center h-24 -mt-6 sm:h-32">
@@ -20,6 +23,27 @@ const Nav = () => {
               <Link to="/products">
                 <span className="flex px-6 py-2 text-red-500 font-font-chinese hover:text-blue-500 ">所有商品</span>
               </Link>
+              {
+                isLogin ? (
+                  <>
+                    <Link to="/orders">
+                      <span className="flex px-6 py-2 text-red-500 font-font-chinese hover:text-blue-500 ">歷史訂單</span>
+                    </Link>
+                    <Link to="/logout">
+                      <span className="flex px-6 py-2 text-red-500 font-font-chinese hover:text-blue-500 ">登出</span>
+                    </Link>
+                  </>
+                ) : (
+                  <>
+                    <Link to="/login">
+                      <span className="flex px-6 py-2 text-red-500 font-font-chinese hover:text-blue-500 ">登入</span>
+                    </Link>
+                    <Link to="/signup">
+                      <span className="flex px-6 py-2 text-red-500 font-font-chinese hover:text-blue-500 ">註冊</span>
+                    </Link>
+                  </>
+                )
+              }
               <CartItemsPopUp />
             </nav>
             <button className="flex flex-col lg:hidden">
