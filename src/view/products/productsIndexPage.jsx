@@ -2,7 +2,7 @@ import React, { useState, useEffect, useRef, useCallback } from 'react';
 import ProductsList from './productList';
 import ProductService from '../../service/productService';
 import LoadingView from '../layout/loadingView';
-
+import ProductSearchPage from './productSearchPage';
 const productService = new ProductService();
 const ProductsIndexPage = () => {
 
@@ -45,6 +45,7 @@ const ProductsIndexPage = () => {
     return (
         <>
             <section className="text-gray-600 body-font">
+                <ProductSearchPage />
                 <div className="container px-5 py-24 mx-auto">
                     <div className="flex flex-wrap -m-4">
                         {

@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import Nav from './view/layout/Nav';
 import './index.css';  // Tailwind CSS 必須引入檔案才能編譯
 import {
@@ -8,12 +8,14 @@ import {
 import AppRouter from './view/layout/appRoutes';
 import CartContext from './context/cartContext';
 import IsLoginContext from './context/isLoginContext';
+import CategoryContext from './context/categoryContext'
 import CartItemDetail from './model/cartItemDetail';
 import CartService from './service/cartService';
 import CustomerService from './service/customerService';
+import ProductService from './service/productService';
 const cartService = new CartService();
 const customerService = new CustomerService();
-
+const productService = new ProductService();
 
 //將原本寫至productDetail裡的addInCart移至此作為共用
 const mergeDataWithToCartItemsDetail = (
@@ -52,15 +54,27 @@ const mergeDataWithToCartItemsDetail = (
     }
 }
 const App = () => {
-    const [cartItemDetails, setCartItemDetails] = useState([])
-    const [isLogIn, setIsLogIn] = useState(customerService.isLoggedIn)
+    const [cartItemDetails, setCartItemDetails] = useState([]);
+    const [isLogIn, setIsLogIn] = useState(customerService.isLoggedIn);
+    const [categories, setCategories] = useState([]);
+    useEffect(() => {
+        const loadFunc = async () => {
+            const result = await productService.getCategories();
+            setCategories(result);
+            console.log('ffff', result)
+        }
+
+        loadFunc()
+    }, [])
     return (
         <IsLoginContext.Provider value={[isLogIn, setIsLogIn]}>
             <CartContext.Provider value={[cartItemDetails, setCartItemDetails, mergeDataWithToCartItemsDetail]}>
-                <Router>
-                    <Nav />
-                    <AppRouter />
-                </Router>
+                <CategoryContext.Provider value={categories}>
+                    <Router>
+                        <Nav />
+                        <AppRouter />
+                    </Router>
+                </CategoryContext.Provider>
             </CartContext.Provider>
         </IsLoginContext.Provider>
     )

@@ -1,9 +1,12 @@
-import React, { useEffect, useState, useContext } from 'react';
+import React, { useEffect, useState, useContext, useRef } from 'react';
 import CartContext from '../../context/cartContext';
 import OrderService from '../../service/orderService';
 import CartService from '../../service/cartService';
 import CustomerService from '../../service/customerService'
 import IsLogInContext from '../../context/isLoginContext';
+import CheckoutInfoEditorContainer from './hooks/checkoutInfoEditorContainer';
+import ExtraCheckoutInfroContext from '../../context/extraCheckoutInfroContext';
+import CheckoutInfoContext from '../../context/checkoutInfoContext';
 
 const customerService = new CustomerService()
 const orderService = new OrderService();
@@ -45,14 +48,18 @@ const data = {
     customer_id: customerService.getCustomerIdFromCookie()
 };
 const CheckoutPage = () => {
-    const [submitting, setSubmitting] = useState(false)
-    const { shipping } = data;
-    const buttonText = (submitting) ? "結帳中...請稍後" : "結帳";
+    const [submitting, setSubmitting] = useState(false);
+    const [submitData, setSubmitData] = useState(data)
+    const [extraSubmitData, SetExtraSubmitData] = useState({
+        receiptType: "2",
+        taxId: "",
+        receiptOptions: ["byMail"]
+    })
     const [cartItemDetails] = useContext(CartContext);
-    const [isLogin, setIsLogin] = useContext(IsLogInContext)
+    const isReady = useRef(false)
 
 
-    data.line_items = cartItemDetails.map((item) => {
+    submitData.line_items = cartItemDetails.map((item) => {
         return {
             product_id: item.product.id,
             quantity: item.quantity
@@ -62,38 +69,52 @@ const CheckoutPage = () => {
         orderService.getPaymentGatways()
         orderService.getShippingMethods()
     }, [])
-    if (isLogin == false) {
-        console.log('ffff', isLogin)
-        //customerService.setShouldBackToCheckout()
-        window.location.replace("/login")
-        return null
+    // if (isLogin == false) {
+    //     //customerService.setShouldBackToCheckout()
+    //     window.location.replace("/login")
+    //     return null
+    // }
+    const getButtonText = () => {
+        if (submitting) {
+            return "結帳中...請稍後"
+        } else if (!isReady.current) {
+            return "資料填寫不完整, 無法結帳"
+        } else {
+            return "結帳"
+        }
     }
     return (
-        <div>
-            <p>{data.last_name}{data.first_name}</p>
-            <p>{data.email}</p>
-            <p>{shipping.postcode}{shipping.country}{shipping.state}{shipping.city}{shipping.address_1}</p>
-            <p>{data.payment_method_title}</p>
-            <p>{data.shipping_lines[0].method_title}</p>
-            <div className="flex justify-center block px-4 py-0 transition-colors text-normal" >
-                <button className="p-2 text-sm text-white bg-gray-500 rounded" onClick={
-                    () => {
-                        setSubmitting(true)
-                        const submitOrde = async () => {
-                            const order = await orderService.submitOrder(data);
+        <CheckoutInfoContext.Provider value={[submitData, setSubmitData, isReady]} >
+            <ExtraCheckoutInfroContext.Provider value={[extraSubmitData, SetExtraSubmitData]}>
+                <div>
+                    {/* <p>{data.last_name}{data.first_name}</p>
+                        <p>{data.email}</p>
+                        <p>{shipping.postcode}{shipping.country}{shipping.state}{shipping.city}{shipping.address_1}</p>
+                        <p>{data.payment_method_title}</p>
+                        <p>{data.shipping_lines[0].method_title}</p> */}
+                    <CheckoutInfoEditorContainer />
+                    <div className="flex justify-center block px-4 py-0 transition-colors text-normal" >
+                        <button className="p-2 text-sm text-white bg-gray-500 rounded" onClick={
+                            () => {
+                                setSubmitting(true)
+                                const submitOrde = async () => {
+                                    console.log(submitData)
+                                    // const order = await orderService.submitOrder(data);
 
-                            if (order) {
-                                cartService.clearCartItems();
-                                window.location.replace(`/orders/${order.id}/success`);
-                            } else {
-                                window.location.replace(`/orders/fail`);
+                                    // if (order) {
+                                    //     cartService.clearCartItems();
+                                    //     window.location.replace(`/orders/${order.id}/success`);
+                                    // } else {
+                                    //     window.location.replace(`/orders/fail`);
+                                    // }
+                                }
+                                submitOrde();
                             }
-                        }
-                        submitOrde();
-                    }
-                } disabled={submitting}>{buttonText}</button>
-            </div>
-        </div>
+                        } disabled={!isReady.current || submitting}>{getButtonText()}</button>
+                    </div>
+                </div >
+            </ExtraCheckoutInfroContext.Provider>
+        </CheckoutInfoContext.Provider>
     )
 }
 export default CheckoutPage
