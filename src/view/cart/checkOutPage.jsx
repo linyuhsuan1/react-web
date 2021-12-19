@@ -53,7 +53,9 @@ const CheckoutPage = () => {
     const [extraSubmitData, SetExtraSubmitData] = useState({
         receiptType: "2",
         taxId: "",
-        receiptOptions: ["byMail"]
+        receiptOptions: ["byMail"],
+        first_name: "",
+        last_name: "",
     })
     const [cartItemDetails] = useContext(CartContext);
     const isReady = useRef(false)
@@ -99,14 +101,14 @@ const CheckoutPage = () => {
                                 setSubmitting(true)
                                 const submitOrde = async () => {
                                     console.log(submitData)
-                                    // const order = await orderService.submitOrder(data);
+                                    const order = await orderService.submitOrder(submitData);
 
-                                    // if (order) {
-                                    //     cartService.clearCartItems();
-                                    //     window.location.replace(`/orders/${order.id}/success`);
-                                    // } else {
-                                    //     window.location.replace(`/orders/fail`);
-                                    // }
+                                    if (order) {
+                                        cartService.clearCartItems();
+                                        window.location.replace(`/orders/${order.id}/success`);
+                                    } else {
+                                        window.location.replace(`/orders/fail`);
+                                    }
                                 }
                                 submitOrde();
                             }

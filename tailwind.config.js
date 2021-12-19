@@ -3,7 +3,16 @@ module.exports = {
   darkMode: false, // or 'media' or 'class'
   mode: 'jit',
   theme: {
-    extend: {},
+    screens: {
+      xs: '360px',
+      sm: '375px',
+      md: '768px',
+      lg: '1024px',
+      xl: '1280px',
+    },
+    extend: {
+      display: ["group-hover"],
+    },
   },
   variants: {
     extend: {},

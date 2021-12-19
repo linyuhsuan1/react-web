@@ -23,6 +23,9 @@ class CartItemDetail extends PBModel {
     get productId() {
         return this.product.id
     }
+    get imageUrl() {
+        return this.product.imageUrl
+    }
 }
 
 export default CartItemDetail

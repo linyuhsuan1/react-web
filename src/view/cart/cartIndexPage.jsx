@@ -13,11 +13,8 @@ const QuantitySelector = ({ value, onChange }) => {
         return tmp
     }, [])
     return (
-        <div className="relative inline-block w-64">
-            <select className="block w-full px-4 py-2 pr-8 leading-tight bg-white border border-gray-400 rounded shadow appearance-none hover:border-gray-500 focus:outline-none focus:shadow-outline"
-                value={value}
-                onChange={onChange}
-            >
+        <div>
+            <select value={value} onChange={onChange}>
                 {
                     valueArray.map((number) => {
                         return (<option key={number} value={number}>{number}</option>)
@@ -39,50 +36,63 @@ const CartIndexPage = () => {
 
     return (
         <>
-            <div className="h-screen bg-gray-300">
-                <div className="py-12">
-                    <div className="max-w-md mx-auto bg-gray-100 rounded-lg shadow-lg md:max-w-5xl">
-                        <div className="md:flex ">
-                            <div className="w-full p-4 px-5 py-5">
-                                <div className="gap-2 md:grid md:grid-cols-3 ">
-                                    <div className="col-span-2 p-5">
-                                        <h1 className="text-xl font-medium ">Shopping Cart</h1>
-                                        {
-                                            cartItemDetails.map((cartItem) => {
-                                                const { product, quantity } = cartItem
-                                                return (
-                                                    <div className="flex items-center justify-between pt-6 mt-6" key={product.id}>
-                                                        <div className="flex items-center"> <img src="https://i.imgur.com/EEguU02.jpg" width="60" className="rounded-full " />
-                                                            <div className="flex flex-col ml-3"> <span className="font-medium md:text-md">{product.title}</span> <span className="text-xs font-light text-gray-400">{product.id} ${product.price}</span> </div>
-                                                        </div>
-                                                        <div className="flex items-center justify-center">
-                                                            <div className="flex pr-8 "></div>
-                                                            <div className="pr-8 ">
-                                                                <QuantitySelector
-                                                                    value={quantity}
-                                                                    onChange={
-                                                                        (e) => {
-                                                                            const { value } = e.target;
-                                                                            const newQuantity = parseInt(value);
-                                                                            const newCartItemDetails = mergeDataWithToCartItemsDetail(
-                                                                                cartItemDetails,
-                                                                                product,
-                                                                                newQuantity,
-                                                                                false
-                                                                            )
-                                                                            setCartItemDetails(newCartItemDetails)
-                                                                            cartService.updateCartItem(
-                                                                                CartService.createCartItem(
-                                                                                    product.id,
-                                                                                    newQuantity
-                                                                                )
-                                                                            )
-                                                                        }
-                                                                    }
+            <section className="text-gray-600 body-font">
+                <div className="container flex flex-wrap items-center px-5 py-24 mx-auto">
+                    <div className="pb-10 mb-10 border-b border-gray-200 md:w-1/2 md:pr-12 md:py-8 sm:w-full">
+                        <ul role="list" className="-my-6 divide-y divide-gray-200">
+                            {
+                                cartItemDetails.map((cartItem) => {
+                                    const { product, quantity } = cartItem
+                                    return (
+                                        <li className="flex py-6" key={product.id}>
+                                            <div className="flex-shrink-0 w-24 h-24 overflow-hidden border border-gray-200 rounded-md">
+                                                <img src={product.imageUrl} className="object-cover object-center w-full h-full" />
+                                            </div>
 
-                                                                />
-                                                            </div>
-                                                            <div onClick={
+                                            <div className="flex flex-col flex-1 ml-4">
+                                                <div>
+                                                    <div className="flex justify-between text-base font-medium text-gray-900">
+                                                        <h3>
+                                                            {product.name}
+                                                        </h3>
+                                                        <p className="ml-4">
+                                                            ${product.price}
+                                                        </p>
+                                                    </div>
+                                                    <p className="mt-1 text-sm text-gray-500">
+                                                        {product.id}
+                                                    </p>
+                                                </div>
+                                                <div className="flex items-end justify-between flex-1 text-sm">
+                                                    <span className="text-gray-500">
+                                                        <QuantitySelector
+                                                            value={quantity}
+                                                            onChange={
+                                                                (e) => {
+                                                                    const { value } = e.target;
+                                                                    const newQuantity = parseInt(value);
+                                                                    const newCartItemDetails = mergeDataWithToCartItemsDetail(
+                                                                        cartItemDetails,
+                                                                        product,
+                                                                        newQuantity,
+                                                                        false
+                                                                    )
+                                                                    setCartItemDetails(newCartItemDetails)
+                                                                    cartService.updateCartItem(
+                                                                        CartService.createCartItem(
+                                                                            product.id,
+                                                                            newQuantity
+                                                                        )
+                                                                    )
+                                                                }
+                                                            }
+
+                                                        />
+                                                    </span>
+
+                                                    <div className="flex">
+                                                        <button type="button" className="font-medium text-indigo-600 hover:text-indigo-500"
+                                                            onClick={
                                                                 () => {
                                                                     const newCartItemDetails = cartItemDetails.map(
                                                                         (item) => {
@@ -94,26 +104,38 @@ const CartIndexPage = () => {
                                                                     setCartItemDetails(newCartItemDetails)
                                                                     cartService.removeCartItem(product.id)
                                                                 }
-                                                            }> <i className="text-xs font-medium fa fa-close"></i>x </div>
-                                                        </div>
-                                                    </div>)
+                                                            }
 
-                                            })
-                                        }
-                                        <div className="flex items-center justify-between pt-6 mt-6 border-t">
-                                            <div className="flex items-center"> <i className="pr-2 text-sm fa fa-arrow-left"></i> <span className="font-medium text-blue-500 text-md">Continue Shopping</span> </div>
-                                            <div className="flex items-end justify-center"> <span className="mr-1 text-sm font-medium text-gray-400">Subtotal:</span> <span className="text-lg font-bold text-gray-800 "> ${total}</span> </div>
-                                            <Link to="checkout">
-                                                <div className="flex items-center"> <i className="pr-2 text-sm fa fa-arrow-left"></i> <button className="font-medium text-blue-500 text-md">結帳</button> </div>
-                                            </Link>
-                                        </div>
-                                    </div>
-                                </div>
+                                                        >Remove</button>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </li>)
+
+                                })
+                            }
+                        </ul>
+                    </div>
+                    <div className="flex flex-col p-4 pt-8 bg-gray-200 rounded-lg md:w-1/2 md:pl-8">
+                        <div className="px-4 py-6 border-t border-gray-200 sm:px-6">
+                            <div className="flex justify-between text-base font-medium text-gray-900">
+                                <p>Subtotal</p>
+                                <p>${total}</p>
+                            </div>
+                            <p className="mt-0.5 text-sm text-gray-500">Shipping and taxes calculated at checkout.</p>
+                            <div className="flex items-center justify-center mt-6 ">
+                                <Link to="checkout">
+                                    <span
+                                        className="w-1/2 px-6 py-3 text-base font-medium text-center text-white bg-indigo-600 border border-transparent rounded-md shadow-sm hover:bg-indigo-700">Checkout</span>
+                                </Link>
+                            </div>
+                            <div className="flex justify-center mt-6 text-sm text-center text-gray-500">
+
                             </div>
                         </div>
                     </div>
                 </div>
-            </div>
+            </section>
         </>
     )
 }
