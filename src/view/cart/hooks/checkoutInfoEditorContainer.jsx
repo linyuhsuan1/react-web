@@ -55,6 +55,8 @@ const CheckoutInfoEditorContainer = () => {
             state: fullAddress.city,
             postcode: fullAddress.postalCode,
         }
+
+
         setSubmitData({
             ...submitData,
             billing: {
