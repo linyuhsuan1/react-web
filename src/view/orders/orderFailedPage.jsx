@@ -3,8 +3,8 @@ import React from 'react';
 const OrderFailedPage = () => {
 
     return (
-        <div>
-            <div>fail</div>
+        <div className='flex flex-col items-center justify-center mt-[6rem]'>
+            <div>請先登入</div>
         </div>
     )
 }

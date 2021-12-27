@@ -45,7 +45,6 @@ const CheckoutInfoEditorContainer = () => {
     const updateContextValue = () => {
         const { fullAddress } = state
         const { receipt } = state
-        console.log('ffff', state)
         const newAddress = {
             first_name: receipt.first_name,
             last_name: receipt.last_name,
@@ -83,8 +82,8 @@ const CheckoutInfoEditorContainer = () => {
         updateContextValue()
     }
     return (
-        <div className="flex items-center justify-center pt-6 mt-6">
-            <form className="w-full max-w-lg">
+        <div className="flex items-center justify-center mt-6 iphoneX:mt-0">
+            <form className="w-full max-w-lg iphoneX:p-4">
                 <div className="flex flex-wrap mb-6 -mx-3">
                     <ReceiptType
                         handler={handler}

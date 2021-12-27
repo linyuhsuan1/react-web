@@ -12,12 +12,10 @@ const orderService = new OrderService()
 const customerService = new CustomerService()
 const OrderSuccessContent = ({ order }) => {
     return (
-        <div style={{ padding: "88px 0", textAlign: "center" }}>
-            <h1>訂單建立成功</h1>
-            <div>
-                你的訂單編號為{order.id}
-            </div>
-            <div>
+        <div className='flex flex-col items-center justify-center mt-[6rem]'>
+            <h1 className='text-2xl text-gray-700'>訂單建立成功</h1>
+            <span className='mt-4 text-xl text-gray-700'> 你的訂單編號為{order.id} </span>
+            {/* <div>
                 <Link to={`/orders/${order.id}`}>
                     查看{order.id}訂單
                 </Link>
@@ -26,12 +24,12 @@ const OrderSuccessContent = ({ order }) => {
                 <Link to="/orders">
                     <button >所有訂單</button>
                 </Link>
-            </div>
-            <div style={{ paddingTop: "128px" }}>
+            </div> */}
+            <span  className='mt-4 text-xl text-gray-700'>
                 <Link to="/">
                     回到首頁
                 </Link>
-            </div>
+            </span>
         </div>
     )
 }

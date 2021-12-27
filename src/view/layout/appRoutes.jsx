@@ -25,15 +25,15 @@ const Routes = () => {
     return (<>
         <Switch>
             <Route path="/" exact>
-                <HomePage />
+                <ProductsIndexPage />
             </Route>
 
             {/* <Route path="/signup" exact>
                 <SignPage />
             </Route> */}
-            <Route path="/home" exact>
+            {/* <Route path="/home" exact>
                 <HomePage />
-            </Route>
+            </Route> */}
             <Route path="/products" exact>
                 <ProductsIndexPage />
             </Route>

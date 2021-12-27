@@ -9,6 +9,7 @@ module.exports = {
       md: '768px',
       lg: '1024px',
       xl: '1280px',
+      iphoneX: { 'max': '500px' },
     },
     extend: {
       display: ["group-hover"],

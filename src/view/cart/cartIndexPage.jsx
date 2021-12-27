@@ -91,7 +91,7 @@ const CartIndexPage = () => {
                                                     </span>
 
                                                     <div className="flex">
-                                                        <button type="button" className="font-medium text-indigo-600 hover:text-indigo-500"
+                                                        <button type="button" className="font-medium text-gray-600 hover:text-blue-500"
                                                             onClick={
                                                                 () => {
                                                                     const newCartItemDetails = cartItemDetails.map(
@@ -122,11 +122,10 @@ const CartIndexPage = () => {
                                 <p>Subtotal</p>
                                 <p>${total}</p>
                             </div>
-                            <p className="mt-0.5 text-sm text-gray-500">Shipping and taxes calculated at checkout.</p>
                             <div className="flex items-center justify-center mt-6 ">
                                 <Link to="checkout">
                                     <span
-                                        className="w-1/2 px-6 py-3 text-base font-medium text-center text-white bg-indigo-600 border border-transparent rounded-md shadow-sm hover:bg-indigo-700">Checkout</span>
+                                        className="w-1/2 px-6 py-3 text-base font-medium text-center text-white bg-blue-600 border border-transparent rounded-md shadow-sm">Checkout</span>
                                 </Link>
                             </div>
                             <div className="flex justify-center mt-6 text-sm text-center text-gray-500">
