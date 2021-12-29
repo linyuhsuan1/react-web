@@ -1,6 +1,6 @@
 {
   "name": "react-web",
-  "homepage": "git@github.com:linyuhsuan1/react-web.git",
+  "homepage": "https://github.com/linyuhsuan1/react-web.git",
   "version": "0.1.0",
   "private": true,
   "dependencies": {
