@@ -12,6 +12,7 @@ import CartIndexPage from '../cart/cartIndexPage';
 import SignPage from '../customer/signPage';
 // import NoMatch from '../errors/404'
 import {
+    BrowserRouter,
     Switch,
     Route,
     Redirect,
@@ -22,7 +23,7 @@ import CustomerService from '../../service/customerService';
 const customerService = new CustomerService()
 const Routes = () => {
     const [isLogin, setIsLogin] = useContext(IsLogInContext)
-    return (<>
+    return (<BrowserRouter basename={ process.env.PUBLIC_URL }>
         <Switch>
             <Route path="/" exact>
                 <ProductsIndexPage />
@@ -86,7 +87,7 @@ const Routes = () => {
                 <NoMatch />
             </Route> */}
         </Switch>
-    </>)
+        </BrowserRouter>)
 }
 
 export default Routes;
