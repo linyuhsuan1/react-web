@@ -13,23 +13,17 @@ const ProductDetail = ({ product }) => {
         setQuantity(value)
     }, [])
 
-
-    // 加入購物車
-
-    const addInCart = useCallback((e) => {
-        const quantityForSubmit = parseInt(quantity)
+    // 加入購物車,mergeDataWithToCartItemsDetail移至App.js作為共用
+    const addInCart = useCallback(() => {
+        const quantityForSubmit = parseInt(quantity);
         const newCartItemDetails = mergeDataWithToCartItemsDetail(
             cartItemDetails,
             product,
             quantityForSubmit,
             true
-        )
-
-        setCartItemDetails(newCartItemDetails)
-
-
-        cartService.addInCart(product.id, quantityForSubmit)
-        // window.location.replace("/products")
+        );
+        setCartItemDetails(newCartItemDetails);
+        cartService.addInCart(product.id, quantityForSubmit);
     })
 
 

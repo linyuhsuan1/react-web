@@ -25,11 +25,15 @@ const CheckoutInfoEditorContainer = () => {
 
     const checkIsReceiptTypeReady = (receipt) => {
         let result = false
-        const { receiptType, taxId } = receipt
-        if (receiptType === "2") {
-            result = true
-        } else if (receiptType === "3" && taxId !== "") {
-            result = true
+        const { receiptType, taxId ,last_name,first_name} = receipt
+        if(last_name !=="" && first_name !==""){
+             result = true
+             if (receiptType === "2") {
+                result = true
+            } 
+            else if (receiptType === "3" && taxId !== "") {
+                result = true
+            }
         }
         return result
     }

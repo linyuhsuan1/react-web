@@ -17,7 +17,7 @@ const cartService = new CartService();
 const customerService = new CustomerService();
 const productService = new ProductService();
 
-//將原本寫至productDetail裡的addInCart移至此作為共用
+//將原本寫至productDetail裡的addInCart移至此作為商品加入購物車和結帳頁共用
 const mergeDataWithToCartItemsDetail = (
     cartItemDetails,
     product,
@@ -61,7 +61,6 @@ const App = () => {
         const loadFunc = async () => {
             const result = await productService.getCategories();
             setCategories(result);
-            console.log('ffff', result)
         }
 
         loadFunc()

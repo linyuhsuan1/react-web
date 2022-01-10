@@ -40,7 +40,7 @@ const CartIndexPage = () => {
                 <div className="container flex flex-wrap items-center px-5 py-24 mx-auto">
                     <div className="pb-10 mb-10 border-b border-gray-200 md:w-1/2 md:pr-12 md:py-8 sm:w-full">
                         <ul role="list" className="-my-6 divide-y divide-gray-200">
-                            {
+                            { 
                                 cartItemDetails.map((cartItem) => {
                                     const { product, quantity } = cartItem
                                     return (
@@ -78,6 +78,7 @@ const CartIndexPage = () => {
                                                                         false
                                                                     )
                                                                     setCartItemDetails(newCartItemDetails)
+                                                                    //更新購物車
                                                                     cartService.updateCartItem(
                                                                         CartService.createCartItem(
                                                                             product.id,

@@ -12,9 +12,7 @@ const Nav = () => {
         <div className="container flex flex-wrap items-center p-4 mx-auto md:flex-no-wrap">
           <div className="mr-4 md:mr-8">
           <Link to="/products">
-              <div className="flex items-center text-2xl font-black text-black">
-                <span className="w-6 h-6 mr-4 bg-blue-500 rounded-full"></span>Profile
-              </div>
+              <div className="flex items-center text-2xl font-black text-black">À l'aise</div>
           </Link>
           </div>
           <div className="ml-auto md:hidden">

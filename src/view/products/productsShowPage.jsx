@@ -15,6 +15,7 @@ const ProductsShowPage = () => {
     const [product, setProduct] = useState([])
 
     useEffect(() => {
+        //取得商品
         const loadFunc = async () => {
             const result = await productService.getProductById(id)
             isInited.current = true
