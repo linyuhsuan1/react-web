@@ -3,6 +3,7 @@ import ReceiptType from './receiptType';
 import AddressPicker from './addressPicker';
 import TaiwanPostalCode from './TaiwanPostalCode.json';
 import CheckoutInfoContext from '../../../context/checkoutInfoContext'
+
 const CheckoutInfoEditorContainer = () => {
     const [submitData, setSubmitData, isReady] = useContext(CheckoutInfoContext)
     const [state, setState] = useState(
@@ -22,7 +23,7 @@ const CheckoutInfoEditorContainer = () => {
             }
         }
     )
-
+    //  檢核姓名、發票類型、郵寄選項是否都有填
     const checkIsReceiptTypeReady = (receipt) => {
         let result = false
         const { receiptType, taxId ,last_name,first_name} = receipt
@@ -37,7 +38,7 @@ const CheckoutInfoEditorContainer = () => {
         }
         return result
     }
-
+    //  檢核地址是否都有填
     const checkIsAddressReady = (fullAddress) => {
         const { city, district, postalCode, address } = fullAddress
         if (city !== "" && district !== "" && postalCode !== "" && address !== "") {

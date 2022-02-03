@@ -23,65 +23,66 @@ import CustomerService from '../../service/customerService';
 const customerService = new CustomerService()
 const Routes = () => {
     const [isLogin, setIsLogin] = useContext(IsLogInContext)
-    return (<BrowserRouter basename={ process.env.PUBLIC_URL }>
-        <Switch>
-            <Route path="/" exact>
-                <ProductsIndexPage />
-            </Route>
+    return (
+        <BrowserRouter basename={process.env.PUBLIC_URL}>
+            <Switch>
+                <Route path="/" exact>
+                    <ProductsIndexPage />
+                </Route>
 
-            {/* <Route path="/signup" exact>
+                {/* <Route path="/signup" exact>
                 <SignPage />
             </Route> */}
-            {/* <Route path="/home" exact>
+                {/* <Route path="/home" exact>
                 <HomePage />
             </Route> */}
-            <Route path="/products" exact>
-                <ProductsIndexPage />
-            </Route>
-            <Route path="/products/:id" exact>
-                <ProductsShowPage />
-            </Route>
-            <Route path="/cart" exact>
-                <CartIndexPage />
-            </Route>
-            <Route path="/checkout" exact render={
-                () => {
-                    if (customerService.isLoggedIn){
-                        return (<CheckoutPage />)
-                    }else{
-                        alert('結帳前請先登入')
+                <Route path="/products" exact>
+                    <ProductsIndexPage />
+                </Route>
+                <Route path="/products/:id" exact>
+                    <ProductsShowPage />
+                </Route>
+                <Route path="/carts" exact>
+                    <CartIndexPage />
+                </Route>
+                <Route path="/checkout" exact render={
+                    () => {
+                        if (customerService.isLoggedIn) {
+                            return (<CheckoutPage />)
+                        } else {
+                            alert('結帳前請先登入')
+                            return <Redirect to="/" />
+                        }
+                    }
+                } />
+                <Route path="/orders" exact>
+                    <OrdersIndexPage />
+                </Route>
+                <Route path="/orders/:id" exact>
+                    <OrdersShowPage />
+                </Route>
+                <Route path="/orders/:id/success" exact>
+                    <OrderSuccessPage />
+                </Route>
+                <Route path="/orders/failed" exact>
+                    <OrderFailedPage />
+                </Route>
+                <Route path="/login" exact>
+                    <LoginPage />
+                </Route>
+                <Route path="/signup" exact>
+                    <SignPage />
+                </Route>
+                <Route
+                    path="/logout" exact
+                    render={() => {
+                        customerService.logOut()
+                        setIsLogin(false)
                         return <Redirect to="/" />
                     }
-                }
-            }/>
-            <Route path="/orders" exact>
-                <OrdersIndexPage />
-            </Route>
-            <Route path="/orders/:id" exact>
-                <OrdersShowPage />
-            </Route>
-            <Route path="/orders/:id/success" exact>
-                <OrderSuccessPage />
-            </Route>
-            <Route path="/orders/failed" exact>
-                <OrderFailedPage />
-            </Route>
-            <Route path="/login" exact>
-                <LoginPage />
-            </Route>
-            <Route path="/signup" exact>
-                <SignPage />
-            </Route>
-            <Route
-                path="/logout" exact
-                render={() => {
-                    customerService.logOut()
-                    setIsLogin(false)
-                    return <Redirect to="/" />
-                }
-                }
-            />
-            {/* <Route
+                    }
+                />
+                {/* <Route
                 path="/logout" exact
                 render={() => {
                     customerService.logOut()
@@ -90,10 +91,10 @@ const Routes = () => {
                 }
                 }
             /> */}
-            {/* <Route path="*">
+                {/* <Route path="*">
                 <NoMatch />
             </Route> */}
-        </Switch>
+            </Switch>
         </BrowserRouter>)
 }
 

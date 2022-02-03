@@ -16,7 +16,7 @@ const ReceiptType = ({ receipt, handler }) => {
     const checkboxHandler = (e) => {
         const newValue = e.target.value
         const name = e.target.getAttribute("attributeName")
-        let values = receipt[name]
+        let values = receipt[name]//取得選擇選項
         if (values.includes(newValue)) {
             values = removeValueFromArray(values, newValue)
         } else {

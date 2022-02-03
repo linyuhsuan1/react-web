@@ -43,10 +43,10 @@ const CartItemPopup = () => {
         <>
             <div className="relative inline-block group">
                 <div className="flex flex-row px-4 py-2 ">
-                     <span className="text-gray-600 font-font-chinese hover:text-blue-500">購物車</span>
-                     <span className="w-6 h-6 ml-[0.5rem] mr-4 text-center text-white bg-blue-400 rounded-full">{count}</span>
+                    <span className="text-gray-600 font-font-chinese hover:text-blue-500">購物車</span>
+                    <span className="w-6 h-6 ml-[0.5rem] mr-4 text-center text-white bg-blue-400 rounded-full">{count}</span>
                 </div>
-               
+
                 <ul className="absolute z-10 hidden p-3 bg-gray-200 rounded-md group-hover:block ml-[-107%] iphoneX:ml-[3%]">
                     {
                         cartItemDetails.map((item) => {
@@ -74,7 +74,7 @@ const CartItemPopup = () => {
                             )
                         })
                     }
-                    <Link to="/cart">
+                    <Link to="/carts">
                         <div className="flex justify-center block px-4 py-0 transition-colors text-normal" >
                             <button className="p-2 text-sm text-white bg-gray-500 rounded">加入購物車</button>
                         </div>

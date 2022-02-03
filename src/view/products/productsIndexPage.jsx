@@ -7,12 +7,12 @@ import ProductsList from './productList';
 import ProductService from '../../service/productService';
 import LoadingView from '../layout/loadingView';
 import ProductSearchPage from './productSearchPage';
-import SwiperCore, { Pagination , Autoplay } from 'swiper';
-SwiperCore.use([Autoplay,Pagination]);
+import SwiperCore, { Pagination, Autoplay } from 'swiper';
+SwiperCore.use([Autoplay, Pagination]);
 
 const productService = new ProductService();
 const ProductsIndexPage = () => {
-    let picArray=[photo_1,photo_2,photo_3];
+    let picArray = [photo_1, photo_2, photo_3];
     let isInited = useRef(false);
     let page = useRef(1);
     let isLastPage = useRef(false);
@@ -52,22 +52,22 @@ const ProductsIndexPage = () => {
     return (
         <>
             <div className="container flex flex-col w-full h-screen mx-auto swiper sm:h-[100]">
-                <Swiper pagination={true} autoplay={{delay:3000,disableOnInteraction:false}} className="swiper-container">
-                {
-                    picArray.map((pic) => {
-                        return (
-                            <SwiperSlide>
-                            <div className="p-4">
-                                <div className="overflow-hidden rounded-lg h-[525px]">
-                                <img className="object-cover object-center w-full h-full" src={pic}/>
-                                </div>
-                            </div>
-                            </SwiperSlide>
-                        )
-                    })
-                }
+                <Swiper pagination={true} autoplay={{ delay: 3000, disableOnInteraction: false }} className="swiper-container">
+                    {
+                        picArray.map((pic) => {
+                            return (
+                                <SwiperSlide>
+                                    <div className="p-4">
+                                        <div className="overflow-hidden rounded-lg h-[525px]">
+                                            <img className="object-cover object-center w-full h-full" src={pic} />
+                                        </div>
+                                    </div>
+                                </SwiperSlide>
+                            )
+                        })
+                    }
                 </Swiper>
-            </div> 
+            </div>
             <section className="text-gray-600 body-font">
                 <div className="container px-5 pt-24 pb-8 mx-auto">
                     <div className="flex flex-wrap -m-4">

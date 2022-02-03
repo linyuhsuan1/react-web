@@ -27,7 +27,7 @@ class CustomerService {
     }
 
     saveToCustomerStorage = () => {
-        Cookies.set(CUSTOMER_KEY, JSON.stringify(this.customerStorage), { expires: 7 })
+        Cookies.set(CUSTOMER_KEY, JSON.stringify(this.customerStorage))
     }
 
     setCustomerIdToCookie = (customerId) => {

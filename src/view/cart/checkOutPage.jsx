@@ -100,7 +100,7 @@ const CheckoutPage = () => {
                             () => {
                                 setSubmitting(true)
                                 const submitOrde = async () => {
-                                    console.log(submitData)
+                                    console.log('[結帳資訊]',submitData)
                                     const order = await orderService.submitOrder(submitData);
 
                                     if (order) {
