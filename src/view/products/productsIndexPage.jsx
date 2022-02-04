@@ -56,7 +56,7 @@ const ProductsIndexPage = () => {
                     {
                         picArray.map((pic) => {
                             return (
-                                <SwiperSlide>
+                                <SwiperSlide key={pic}>
                                     <div className="p-4">
                                         <div className="overflow-hidden rounded-lg h-[525px]">
                                             <img className="object-cover object-center w-full h-full" src={pic} />

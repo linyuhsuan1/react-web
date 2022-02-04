@@ -10,7 +10,6 @@ import OrderSuccessPage from '../orders/orderSuccessPage';
 import OrderFailedPage from '../orders/orderFailedPage';
 import CartIndexPage from '../cart/cartIndexPage';
 import SignPage from '../customer/signPage';
-// import NoMatch from '../errors/404'
 import {
     BrowserRouter,
     Switch,
@@ -24,18 +23,11 @@ const customerService = new CustomerService()
 const Routes = () => {
     const [isLogin, setIsLogin] = useContext(IsLogInContext)
     return (
-        <BrowserRouter basename={process.env.PUBLIC_URL}>
+        <>
             <Switch>
                 <Route path="/" exact>
                     <ProductsIndexPage />
                 </Route>
-
-                {/* <Route path="/signup" exact>
-                <SignPage />
-            </Route> */}
-                {/* <Route path="/home" exact>
-                <HomePage />
-            </Route> */}
                 <Route path="/products" exact>
                     <ProductsIndexPage />
                 </Route>
@@ -82,20 +74,8 @@ const Routes = () => {
                     }
                     }
                 />
-                {/* <Route
-                path="/logout" exact
-                render={() => {
-                    customerService.logOut()
-                    setIsLogin(false)
-                    return <Redirect to="/" />
-                }
-                }
-            /> */}
-                {/* <Route path="*">
-                <NoMatch />
-            </Route> */}
             </Switch>
-        </BrowserRouter>)
+        </>)
 }
 
 export default Routes;
