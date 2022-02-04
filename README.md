@@ -30,7 +30,7 @@
 ### 購物車
 - 顯示購物車內容，可更改商品數量或移除商品
 - 使用 useContext 全域管理加入、刪除的商品數量、品項
-- 如狀態為未登入時，點擊 Checkout 無法進入填寫訂購資料頁
+- 如狀態為未登入時，點擊 Checkout 無法進入填寫訂購資料頁，需要先進行登入
 ![](https://github.com/linyuhsuan1/react-web/blob/master/src/picture/pic-4.png)
 
 
