@@ -19,7 +19,6 @@ class CartItemDetail extends PBModel {
     get productName() {
         return this.product.name
     }
-
     get productId() {
         return this.product.id
     }

@@ -28,7 +28,7 @@ const ProductsShowPage = () => {
     const contentView = useMemo(() => {
         if (initFlag) {
             if (product) {
-                return (<ProductDetail product={product}/>)
+                return (<ProductDetail product={product} />)
             } else {
                 return (<Redirect to="/products" />)
             }
@@ -40,7 +40,7 @@ const ProductsShowPage = () => {
     return (
         <div>
             {
-                contentView 
+                contentView
             }
         </div>
     )

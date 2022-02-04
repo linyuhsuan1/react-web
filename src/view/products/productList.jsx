@@ -16,7 +16,7 @@ const ProductsList = ({ product }) => {
                     {/* <h3 className="mb-1 text-xs tracking-widest text-gray-500 title-font">{product.id}</h3> */}
                     <h2 className="text-lg font-medium text-gray-900 title-font">{product.name}</h2>
                     {/*  dangerouslySetInnerHTML={{__html:傳入值}}如果值原本為html格式, 需使用此方式此方式才能引入 */}
-                    <p className="mt-1" dangerouslySetInnerHTML={{ __html: product.description }}></p>
+                    {/* <p className="mt-1" dangerouslySetInnerHTML={{ __html: product.description }}></p> */}
                     <p className="mt-1">{isDiscont}</p>
                 </div>
             </Link>

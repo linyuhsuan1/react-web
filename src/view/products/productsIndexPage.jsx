@@ -40,12 +40,16 @@ const ProductsIndexPage = () => {
 
     useEffect(() => {
         const loadFunc = async () => {
-            const result = await productService.getProducts(page.current);
-            isInited.current = true;
-            setProducts([
-                ...products,
-                ...result
-            ])
+            if (products.length > 0) {
+                return;
+            } else {
+                const result = await productService.getProducts(page.current);
+                isInited.current = true;
+                setProducts([
+                    ...products,
+                    ...result
+                ])
+            }
         }
         loadFunc()
     }, [productService])
