@@ -18,11 +18,11 @@ class CartService {
             quantity: quantity
         }
     }
-
+    //儲存商品
     save = () => {
         Cookies.set(CART_KEY, JSON.stringify(this.cart));
     }
-
+    //取得商品
     getCartItem = (productId) => {
         const productIdKey = parseInt(productId)
         const cartItem = this.cart[productIdKey]
@@ -33,13 +33,13 @@ class CartService {
 
         return cartItem
     }
-
+    //新增商品
     addInCart = (productId, quantity) => {
         const cartItem = this.getCartItem(productId) || CartService.createCartItem(productId, 0)
         cartItem.quantity += Math.max(1, quantity)
         this.updateCartItem(cartItem)
     }
-
+    //更新商品數量
     updateCartItem = (cartItem) => {
         const { productId } = cartItem
         if (this.isCartItemValid(cartItem, productId)) {
@@ -48,7 +48,7 @@ class CartService {
             this.save()
         }
     }
-
+    //移除商品
     removeCartItem = (productId) => {
         this.cart[productId] = null
         this.save()
@@ -57,6 +57,7 @@ class CartService {
     isCartItemValid = (cartItem, productId) => {
         return !(cartItem.productId !== productId || cartItem.quantity <= 0)
     }
+    //清空所有商品
     clearCartItems() {
         this.cart = {}
         this.save()

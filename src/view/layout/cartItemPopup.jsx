@@ -33,12 +33,12 @@ const CartItemPopup = () => {
                         return null
                     }
                     return new CartItemDetail(product, cartItem.quantity)
-                })
+                }).filter(x => x)
                 setCartItemDetails(result)
             }
         }
         loadCartItemsDetail()
-    }, [productService])
+    }, [setCartItemDetails])
     return (
         <>
             <div className="relative inline-block group">
@@ -65,9 +65,6 @@ const CartItemPopup = () => {
                                         </div>
                                         <div className="flex items-end justify-between flex-1 text-sm">
                                             <span className="text-gray-500"> Qt: {item.quantity}</span>
-                                            <div className="flex">
-                                                <button type="button" className="font-medium text-indigo-600 hover:text-indigo-500">Remove</button>
-                                            </div>
                                         </div>
                                     </div>
                                 </li>

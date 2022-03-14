@@ -24,7 +24,7 @@ const mergeDataWithToCartItemsDetail = (
     quantity,
     append = true
 ) => {
-    const quantityForSubmit = quantity
+    const quantityForSubmit = parseInt(quantity)
     if (cartService.getCartItem(product.id)) {
         return cartItemDetails.map((item) => {
             if (item.product.id === product.id) {

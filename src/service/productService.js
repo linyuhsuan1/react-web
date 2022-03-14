@@ -10,6 +10,7 @@ const WooCommerce = new WooCommerceRestApi({
 });
 
 class ProductService {
+    //取得商品
     getProducts = (page) => {
         return WooCommerce.get("products", {
             page: page,
@@ -17,7 +18,7 @@ class ProductService {
         })
             .then((response) => {
                 const products = response.data.map((rawData) => {
-                    return new Product(rawData) //將取得資料傳給pbModel.js
+                    return new Product(rawData)
                 })
                 return products
             })
@@ -26,7 +27,7 @@ class ProductService {
                 return []
             });
     }
-
+    //取得單一商品
     getProductById = (id) => {
         return WooCommerce.get(`products/${id}`, {
         })
@@ -38,7 +39,7 @@ class ProductService {
                 return null
             });
     }
-
+    //取得指定ID商品
     getProductsByIds = (ids) => {
         return WooCommerce.get("products", {
             page: 1,

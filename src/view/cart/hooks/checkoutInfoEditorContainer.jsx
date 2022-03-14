@@ -26,12 +26,12 @@ const CheckoutInfoEditorContainer = () => {
     //  檢核姓名、發票類型、郵寄選項是否都有填
     const checkIsReceiptTypeReady = (receipt) => {
         let result = false
-        const { receiptType, taxId ,last_name,first_name} = receipt
-        if(last_name !=="" && first_name !==""){
-             result = true
-             if (receiptType === "2") {
+        const { receiptType, taxId, last_name, first_name } = receipt
+        if (last_name !== "" && first_name !== "") {
+            result = true
+            if (receiptType === "2") {
                 result = true
-            } 
+            }
             else if (receiptType === "3" && taxId !== "") {
                 result = true
             }

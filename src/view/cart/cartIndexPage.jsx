@@ -8,7 +8,7 @@ const cartService = new CartService()
 
 const QuantitySelector = ({ value, onChange }) => {
     const valueArray = useMemo(() => {
-        let tmp = Array.from(Array(101).keys())
+        let tmp = Array.from(Array(30).keys())
         tmp.shift()
         return tmp
     }, [])

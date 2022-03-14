@@ -89,18 +89,13 @@ const CheckoutPage = () => {
         <CheckoutInfoContext.Provider value={[submitData, setSubmitData, isReady]} >
             <ExtraCheckoutInfroContext.Provider value={[extraSubmitData, SetExtraSubmitData]}>
                 <div>
-                    {/* <p>{data.last_name}{data.first_name}</p>
-                        <p>{data.email}</p>
-                        <p>{shipping.postcode}{shipping.country}{shipping.state}{shipping.city}{shipping.address_1}</p>
-                        <p>{data.payment_method_title}</p>
-                        <p>{data.shipping_lines[0].method_title}</p> */}
                     <CheckoutInfoEditorContainer />
                     <div className="flex justify-center block px-4 py-0 transition-colors text-normal" >
                         <button className="p-2 text-sm text-white bg-gray-500 rounded" onClick={
                             () => {
                                 setSubmitting(true)
                                 const submitOrde = async () => {
-                                    console.log('[結帳資訊]',submitData)
+                                    console.log('[結帳資訊]', submitData)
                                     const order = await orderService.submitOrder(submitData);
 
                                     if (order) {

@@ -20,11 +20,16 @@ const ProductDetail = ({ product }) => {
             cartItemDetails,
             product,
             quantityForSubmit,
-            true
         );
         setCartItemDetails(newCartItemDetails);
         cartService.addInCart(product.id, quantityForSubmit);
-    })
+    },[
+        cartItemDetails, 
+        mergeDataWithToCartItemsDetail, 
+        product, 
+        quantity, 
+        setCartItemDetails 
+    ])
 
 
     return (
